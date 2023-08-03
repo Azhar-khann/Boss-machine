@@ -19,7 +19,7 @@ apiRouter.post('/minions', (req, res, next) => {
 apiRouter.get('/minions/:minionId', (req, res, next) => {
     const minionId = req.params.minionId
     const minion = getFromDatabaseById('minions',minionId)   // check for if there is any minion with this id
-    if (minion != null){
+    if (minion != undefined){
         res.send(minion)      
     }else{
         res.status(404).send()
@@ -29,7 +29,7 @@ apiRouter.get('/minions/:minionId', (req, res, next) => {
 
 apiRouter.put('/minions/:minionId', (req, res, next) => {
     const minion = getFromDatabaseById('minions',req.params.minionId)
-    if (minion != null){
+    if (minion != undefined){
         const updatedMinion = updateInstanceInDatabase('minions',req.body)
         res.send(updatedMinion)
     } else{
@@ -63,7 +63,7 @@ apiRouter.post('/ideas', checkMillionDollarIdea, (req, res, next) => {
 
 apiRouter.get('/ideas/:ideaId', (req, res, next) => {
     const idea = getFromDatabaseById('ideas',req.params.ideaId)
-    if (idea != null){
+    if (idea != undefined){
         res.send(idea)      
     }else{
         res.status(404).send()
@@ -73,7 +73,7 @@ apiRouter.get('/ideas/:ideaId', (req, res, next) => {
 
 apiRouter.put('/ideas/:ideaId', (req, res, next) => {
     const idea = getFromDatabaseById('ideas',req.params.ideaId)
-    if (idea != null){
+    if (idea != undefined){
         const updatedIdea = updateInstanceInDatabase('ideas',req.body)
         res.send(updatedIdea)
     } else{
@@ -118,7 +118,7 @@ apiRouter.delete('/meetings', (req, res, next) => {
 apiRouter.get('/minions/:minionId/work', (req, res, next) => {
     const minionId = req.params.minionId
     const minion = getFromDatabaseById('minions',minionId)
-    if (minion != null){                                                                               
+    if (minion != undefined){                                                                               
         res.status(200).send( getMinionWork( findDataArrayByName('work').data, minionId))     
     }else{
         res.status(404).send()
@@ -135,7 +135,7 @@ apiRouter.put('/minions/:minionId/work/:workId', (req, res, next) => {
     const minion = getFromDatabaseById('minions',req.params.minionId)
     const work = getFromDatabaseById('work',req.params.workId)
 
-    if (minion != null && work != null && work.minionId === req.params.minionId){
+    if (minion != undefined && work != undefined && work.minionId === req.params.minionId){
         const updatedWork = updateInstanceInDatabase('work',req.body)
         res.send(updatedWork)
     }
